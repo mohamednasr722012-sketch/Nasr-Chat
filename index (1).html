@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>شات الأكواد</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<!-- شاشة الدخول / التسجيل -->
+<section id="auth" class="hidden">
+  <div class="card">
+    <h1>💬 شات الأكواد</h1>
+    <div class="tabs">
+      <button id="tab-login" class="active" type="button">دخول</button>
+      <button id="tab-register" type="button">حساب جديد</button>
+    </div>
+    <form id="auth-form" autocomplete="off">
+      <label>الكود (رقم من 1 لـ ما لا نهاية)
+        <input id="f-code" inputmode="numeric" pattern="[1-9][0-9]*" maxlength="30" required placeholder="مثال: 777">
+      </label>
+      <label id="name-wrap" class="hidden">اسمك
+        <input id="f-name" maxlength="40" placeholder="اسمك اللي هيظهر للناس">
+      </label>
+      <label>كلمة السر (8 حروف على الأقل)
+        <input id="f-pass" type="password" minlength="8" maxlength="128" required autocomplete="current-password">
+      </label>
+      <p id="auth-error" class="error"></p>
+      <button class="primary" id="auth-submit" type="submit">دخول</button>
+    </form>
+  </div>
+</section>
+
+<!-- التطبيق -->
+<section id="app" class="hidden">
+  <aside id="sidebar">
+    <header>
+      <div>
+        <strong id="me-name"></strong>
+        <small>كودي: <span id="me-code"></span></small>
+      </div>
+      <button id="btn-settings" class="icon" title="إعدادات الحساب" type="button">⚙️</button>
+    </header>
+    <form id="new-chat" autocomplete="off">
+      <input id="new-code" inputmode="numeric" maxlength="30" placeholder="اكتب كود عشان تبدأ محادثة">
+      <button class="primary" type="submit">فتح</button>
+    </form>
+    <p id="new-error" class="error"></p>
+    <ul id="convs"></ul>
+  </aside>
+
+  <main id="chat">
+    <div id="empty">اختار محادثة أو اكتب كود عشان تبدأ</div>
+    <div id="chat-box" class="hidden">
+      <header>
+        <button id="btn-back" class="icon" type="button" title="رجوع">➡️</button>
+        <div>
+          <strong id="peer-name"></strong>
+          <small>كود: <span id="peer-code"></span></small>
+        </div>
+      </header>
+      <div id="msgs"></div>
+      <form id="send-form" autocomplete="off">
+        <label class="icon attach" title="صورة أو فيديو">📎
+          <input id="file" type="file" accept="image/jpeg,image/png,image/gif,image/webp,video/mp4,video/webm,video/quicktime" hidden>
+        </label>
+        <input id="text" maxlength="4000" placeholder="اكتب رسالة...">
+        <button class="primary" type="submit">إرسال</button>
+      </form>
+      <div id="file-chip" class="hidden"><span id="file-name"></span> <button id="file-clear" type="button">✕</button></div>
+      <p id="send-error" class="error"></p>
+    </div>
+  </main>
+</section>
+
+<!-- إعدادات الحساب -->
+<dialog id="settings">
+  <form id="pw-form" method="dialog">
+    <h3>إعدادات الحساب</h3>
+    <label>الاسم
+      <input id="s-name" maxlength="40">
+    </label>
+    <button id="btn-rename" type="button">حفظ الاسم</button>
+    <hr>
+    <label>كلمة السر الحالية <input id="s-cur" type="password" maxlength="128" autocomplete="current-password"></label>
+    <label>كلمة السر الجديدة <input id="s-new" type="password" minlength="8" maxlength="128" autocomplete="new-password"></label>
+    <button id="btn-pw" type="button">تغيير كلمة السر</button>
+    <p id="s-msg" class="error"></p>
+    <hr>
+    <button id="btn-logout" type="button">خروج</button>
+    <button id="btn-logout-all" type="button" class="danger">خروج من كل الأجهزة</button>
+    <button id="btn-close" type="button">إغلاق</button>
+  </form>
+</dialog>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>
